@@ -8,6 +8,12 @@ class FrontController
     private $_action = "default";
     private $_params = array();
 
+
+    public function __construct()
+    {
+        $this->_parseUrl();
+    }
+
     private function _parseUrl()
     {
         if(isset($_GET['path'])) {
@@ -24,6 +30,18 @@ class FrontController
 
     public function dispatch()
     {
-        $this->_parseUrl();
+        $controllerClassName =  'PHPMVC\Controllers\\'.ucfirst($this->_controller) . 'Controller';
+        $actionName = $this->_action . 'Action';
+        if(!class_exists($controllerClassName)) {
+            $controllerClassName = 'PHPMVC\Controllers\\NotFoundController';
+        }
+
+        $controller = new $controllerClassName();
+        if(!method_exists($controller, $actionName))
+        {
+            $actionName = 'notFoundAction';
+        }
+
+        $controller->$actionName();
     }
 }
