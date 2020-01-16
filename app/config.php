@@ -5,3 +5,4 @@ if(!defined('DS')) {
 }
 
 define('APP_PATH', dirname(realpath(__FILE__)));
+define('VIEWS_PATH', APP_PATH . DS . 'views' . DS);

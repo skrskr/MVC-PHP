@@ -4,6 +4,9 @@ namespace PHPMVC\LIB;
 
 class FrontController
 {
+    const NOT_FOUND_ACTION = 'notFoundAction';
+    const NOT_FOUND_CONTROLLER = 'PHPMVC\Controllers\\NotFoundController';
+
     private $_controller = "index";
     private $_action = "default";
     private $_params = array();
@@ -33,15 +36,17 @@ class FrontController
         $controllerClassName =  'PHPMVC\Controllers\\'.ucfirst($this->_controller) . 'Controller';
         $actionName = $this->_action . 'Action';
         if(!class_exists($controllerClassName)) {
-            $controllerClassName = 'PHPMVC\Controllers\\NotFoundController';
+            $controllerClassName = self::NOT_FOUND_CONTROLLER;
         }
 
         $controller = new $controllerClassName();
         if(!method_exists($controller, $actionName))
         {
-            $actionName = 'notFoundAction';
+            $this->_action = $actionName = self::NOT_FOUND_ACTION;
         }
-
+        $controller->setController($this->_controller);
+        $controller->setAction($this->_action);
+        $controller->setParams($this->_params);
         $controller->$actionName();
     }
 }
