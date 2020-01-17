@@ -11,6 +11,7 @@ if(!defined('DS')) {
 require_once '..' . DS . 'app' . DS . 'config.php';
 require_once  '..' . DS . 'app' . DS . 'lib' . DS . 'autoload.php';
 
+session_start();
 
 // request we will use it
 // domain/controller/action/params

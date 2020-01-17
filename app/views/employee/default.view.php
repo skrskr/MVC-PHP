@@ -31,6 +31,14 @@
 
 <div class="wrapper">
     <h1>Our Employees</h1>
+    <a href="/employee/add">Add new Employee</a>
+
+    <?php if(isset($_SESSION['message'])){ ?>
+        <p class="message"><?= $_SESSION['message'] ?></p>
+        <?php
+        unset($_SESSION['message']);
+        }
+        ?>
     <table>
         <thead>
             <tr>
