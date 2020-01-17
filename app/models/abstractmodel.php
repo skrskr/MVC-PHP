@@ -1,6 +1,6 @@
 <?php
 namespace PHPMVC\Models;
-
+use PHPMVC\LIB\Database\DatabaseHandler;
 
 class AbstractModel
 {

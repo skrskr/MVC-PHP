@@ -10,6 +10,8 @@ class AbstractController {
     private $_action;
     private $_params;
 
+    protected $_data = [];
+
     public function notFoundAction()
     {
         $this->_view();
@@ -33,9 +35,11 @@ class AbstractController {
             require_once VIEWS_PATH . 'notfound' . DS . 'notfound.view.php';
         } else {
             $view = VIEWS_PATH . $this->_controller . DS . $this->_action . '.view.php';
-            echo $view;
-            if(file_exists($view))
+//            echo $view;
+            if(file_exists($view)){
+                extract($this->_data);
                 require_once $view;
+            }
             else
                 require_once VIEWS_PATH . 'notfound' . DS . 'noview.view.php';
         }
