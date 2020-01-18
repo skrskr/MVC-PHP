@@ -64,7 +64,7 @@
                             <td><?= $employee->salary ?></td>
                             <td><?= $employee->tax ?></td>
                             <td><a href="/employee/edit/<?=$employee->id?>" > Edit</a> |
-                                <a href="/employee/delete/<?=$employee->id?>">Delete</a>
+                                <a href="/employee/delete/<?=$employee->id?>" onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
                             </td>
                         </tr>
                         <?php
