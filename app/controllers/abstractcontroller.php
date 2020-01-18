@@ -29,6 +29,10 @@ class AbstractController {
         $this->_params = $params;
     }
 
+    public function getParams() {
+        return $this->_params;
+    }
+
     public function _view()
     {
         if($this->_action == FrontController::NOT_FOUND_ACTION) {
