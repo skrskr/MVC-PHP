@@ -4,7 +4,8 @@ namespace PHPMVC\Controllers;
 
 use PHPMVC\LIB\FrontController;
 
-class AbstractController {
+class AbstractController
+{
 
     private $_controller;
     private $_action;
@@ -17,34 +18,45 @@ class AbstractController {
         $this->_view();
     }
 
-    public function setController($controller){
+    public function setController($controller)
+    {
         $this->_controller = $controller;
     }
 
-    public function setAction($action){
+    public function setAction($action)
+    {
         $this->_action = $action;
     }
 
-    public function setParams($params){
+    public function setParams($params)
+    {
         $this->_params = $params;
     }
 
-    public function getParams() {
+    public function getParams()
+    {
         return $this->_params;
     }
 
     public function _view()
     {
-        if($this->_action == FrontController::NOT_FOUND_ACTION) {
+        if ($this->_action == FrontController::NOT_FOUND_ACTION) {
             require_once VIEWS_PATH . 'notfound' . DS . 'notfound.view.php';
         } else {
+
             $view = VIEWS_PATH . $this->_controller . DS . $this->_action . '.view.php';
-//            echo $view;
-            if(file_exists($view)){
+
+            if (file_exists($view)) {
+                require_once TEMPLATE_PATH . 'templateheaderstart.php';
+                require_once TEMPLATE_PATH . 'templateheaderend.php';
+                require_once TEMPLATE_PATH . 'wrapperstart.php';
+                require_once TEMPLATE_PATH . 'header.php';
+                require_once TEMPLATE_PATH . 'nav.php';
                 extract($this->_data);
                 require_once $view;
-            }
-            else
+                require_once TEMPLATE_PATH . 'wrapperend.php';
+                require_once TEMPLATE_PATH . 'templatefooter.php';
+            } else
                 require_once VIEWS_PATH . 'notfound' . DS . 'noview.view.php';
         }
     }

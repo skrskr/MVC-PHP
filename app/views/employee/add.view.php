@@ -3,16 +3,18 @@
         box-sizing: border-box;
     }
 
-    .wrapper{
+    .wrapper2 {
         width: 70%;
         margin: 0 auto;
     }
 
-    .wrapper h1 {
+    .wrapper2 h1 {
         text-align: center;
         font-weight: bold;
     }
-    input[type=text], input[type=number]{
+
+    input[type=text],
+    input[type=number] {
         width: 100%;
         padding: 12px 20px;
         margin: 8px 0;
@@ -37,14 +39,10 @@
         background-color: #45a049;
     }
 
-    div {
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px;
-    }
+    
 </style>
 
-<div class="wrapper">
+<div class="wrapper2">
     <h1>New Employee</h1>
     <form method="post">
         <label for="name">Name</label>
