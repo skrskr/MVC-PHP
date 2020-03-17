@@ -10,6 +10,7 @@ class AbstractController
     private $_controller;
     private $_action;
     private $_params;
+    private $_template;
 
     protected $_data = [];
 
@@ -26,6 +27,11 @@ class AbstractController
     public function setAction($action)
     {
         $this->_action = $action;
+    }
+
+    public function setTemplate($template)
+    {
+        $this->_template = $template;
     }
 
     public function setParams($params)
@@ -47,15 +53,9 @@ class AbstractController
             $view = VIEWS_PATH . $this->_controller . DS . $this->_action . '.view.php';
 
             if (file_exists($view)) {
-                require_once TEMPLATE_PATH . 'templateheaderstart.php';
-                require_once TEMPLATE_PATH . 'templateheaderend.php';
-                require_once TEMPLATE_PATH . 'wrapperstart.php';
-                require_once TEMPLATE_PATH . 'header.php';
-                require_once TEMPLATE_PATH . 'nav.php';
-                extract($this->_data);
-                require_once $view;
-                require_once TEMPLATE_PATH . 'wrapperend.php';
-                require_once TEMPLATE_PATH . 'templatefooter.php';
+                $this->_template->setActionViewFile($view);
+                $this->_template->setAppData($this->_data);
+                $this->_template->renderApp();
             } else
                 require_once VIEWS_PATH . 'notfound' . DS . 'noview.view.php';
         }
