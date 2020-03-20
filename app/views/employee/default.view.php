@@ -3,7 +3,7 @@
         box-sizing: border-box;
     }
 
-    .wrapper{
+    .wrapper {
         width: 80%;
         margin: 0 auto;
     }
@@ -12,17 +12,22 @@
         text-align: center;
         font-weight: bold;
     }
+
     table {
         border-collapse: collapse;
         width: 100%;
     }
 
-    th, td {
+    th,
+    td {
         text-align: left;
         padding: 8px;
     }
 
-    tr:nth-child(even) {background-color: #f2f2f2;}
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
     th {
         background-color: #4CAF50;
         color: white;
@@ -30,52 +35,54 @@
 </style>
 
 <div class="wrapper">
-    <h1>Our Employees</h1>
-    <a href="/employee/add">Add new Employee</a>
+    <h1><?= $text_table_employee ?> </h1>
+    <a href="/employee/add"><?= $text_add_new_employee ?></a>
 
-    <?php if(isset($_SESSION['message'])){ ?>
+    <?php if (isset($_SESSION['message'])) { ?>
         <p class="message"><?= $_SESSION['message'] ?></p>
-        <?php
+    <?php
         unset($_SESSION['message']);
-        }
-        ?>
+    }
+    ?>
     <table>
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Address</th>
-                <th>Salary</th>
-                <th>Tax</th>
-                <th>Control</th>
+                <th><?= $text_table_employee_name ?></th>
+                <th><?= $text_table_employee_age ?></th>
+                <th><?= $text_table_employee_address ?></th>
+                <th><?= $text_table_employee_salary ?></th>
+                <th><?= $text_table_employee_tax ?></th>
+                <th><?= $text_table_control ?></th>
             </tr>
         </thead>
 
         <tbody>
-           <?php
-            if(isset($employees)) {
+            <?php
+            if (isset($employees)) {
                 if (false !== $employees) {
                     foreach ($employees as $employee) {
-                        ?>
+            ?>
                         <tr>
                             <td><?= $employee->name ?></td>
                             <td><?= $employee->age ?></td>
                             <td><?= $employee->address ?></td>
                             <td><?= $employee->salary ?></td>
                             <td><?= $employee->tax ?></td>
-                            <td><a href="/employee/edit/<?=$employee->id?>" > Edit</a> |
-                                <a href="/employee/delete/<?=$employee->id?>" onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
+                            <td><a href="/employee/edit/<?= $employee->id ?>"> <?= $text_employee_edit ?></a> |
+                                <a href="/employee/delete/<?= $employee->id ?>" onclick="return confirm('<?= $text_delete_confirm ?>');"> <?= $text_employee_delete ?></a>
                             </td>
                         </tr>
-                        <?php
+                    <?php
                     }
                 } else {
                     ?>
-                    <td colspan="5"><p>No emp</p></td>
-                    <?php
+                    <td colspan="5">
+                        <p>No emp</p>
+                    </td>
+            <?php
                 }
             }
-           ?>
+            ?>
         </tbody>
 
     </table>

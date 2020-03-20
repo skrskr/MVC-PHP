@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPMVC\Controllers;
 
 use PHPMVC\LIB\Helper;
@@ -13,14 +14,16 @@ class EmployeeController extends AbstractController
 
     public function defaultAction()
     {
+        $this->_language->load('template.common');
+        $this->_language->load('employee.default');
         $this->_data['employees']  = EmployeeModel::getAll();
         $this->_view();
     }
 
     public function addAction()
     {
-        if(isset($_POST['submit']))
-        {
+        $this->_language->load('template.common');
+        if (isset($_POST['submit'])) {
             $name = $this->filterString($_POST['name']);
             $age = $this->filterInt($_POST['age']);
             $address = $this->filterString($_POST['address']);
@@ -29,7 +32,7 @@ class EmployeeController extends AbstractController
 
             $newEmp = new EmployeeModel($name, $age, $address, $salary, $tax);
 
-            if($newEmp->save()) {
+            if ($newEmp->save()) {
                 $_SESSION['message'] = "Employee Added Successfully";
                 $this->redirect('/employee');
             }
@@ -39,14 +42,14 @@ class EmployeeController extends AbstractController
 
     public function editAction()
     {
+        $this->_language->load('template.common');
         $id = $this->getParams()[0];
         $emp = EmployeeModel::getByPK($id);
-        if($emp === false) {
+        if ($emp === false) {
             $this->redirect('/employee');
         }
         $this->_data['employee'] = $emp;
-        if(isset($_POST['submit']))
-        {
+        if (isset($_POST['submit'])) {
             $name = $this->filterString($_POST['name']);
             $age = $this->filterInt($_POST['age']);
             $address = $this->filterString($_POST['address']);
@@ -59,7 +62,7 @@ class EmployeeController extends AbstractController
             $emp->setSalary($salary);
             $emp->setTax($tax);
 
-            if($emp->save()) {
+            if ($emp->save()) {
                 $_SESSION['message'] = "Employee Updated Successfully";
                 $this->redirect('/employee');
             }
@@ -69,13 +72,14 @@ class EmployeeController extends AbstractController
 
     public function deleteAction()
     {
+        $this->_language->load('template.common');
         $id = $this->getParams()[0];
         $emp = EmployeeModel::getByPK($id);
-        if($emp === false) {
+        if ($emp === false) {
             $this->redirect('/employee');
         }
 
-        if($emp->delete()) {
+        if ($emp->delete()) {
             $_SESSION['message'] = "Employee Deleted Successfully";
             $this->redirect('/employee');
         }
